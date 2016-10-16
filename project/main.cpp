@@ -59,7 +59,7 @@ int main()
     const GLchar* vertexPath = "shaders/vertexShader.glsl";
     const GLchar* fragmentPath = "shaders/vertexShader.glsl";
 
-    Shader shaderMtn = new Shader(vertexPath, fragmentPath);
+    Shader shaderMtn(vertexPath, fragmentPath);
 
     /* /Shaders initialization */
 
@@ -92,6 +92,8 @@ int main()
         // Clear the colorbuffer
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
+
+        shaderMtn.Use();
 
         // Swap the screen buffers
         glfwSwapBuffers(window);
