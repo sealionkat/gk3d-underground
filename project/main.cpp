@@ -28,7 +28,7 @@ int main()
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
     // Create a GLFWwindow object that we can use for GLFW's functions
-    GLFWwindow *window = glfwCreateWindow(WIDTH, HEIGHT, "LearnOpenGL", nullptr, nullptr);
+    GLFWwindow *window = glfwCreateWindow(WIDTH, HEIGHT, "Underground", nullptr, nullptr);
     if (window == nullptr)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
@@ -54,22 +54,83 @@ int main()
     glViewport(0, 0, width, height);
 
     /* Shaders initialization */
+    std::cout << "Preparing shaders..." << std::endl;
+
+    const GLchar *vertexShaderSource = "";
+    const GLchar *fragmentShaderSource = "";
+
+    GLuint vertexShader;
+    GLuint fragmentShader;
 
     // Vertex shader
+    vertexShader = glCreateShader(GL_VERTEX_SHADER);
+    glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+    glCompileShader(vertexShader);
+
+    GLint success;
+    GLchar infoLog[512];
+    glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
+    if (!success)
+    {
+        glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
+        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n"
+                  << infoLog << std::endl;
+    }
 
     // Fragment shader
+    fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
+    glCompileShader(fragmentShader);
 
-    // Check shaders
+    glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
+    if (!success)
+    {
+        glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
+        std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n"
+                  << infoLog << std::endl;
+    }
 
     // Link shaders
+
+    std::cout << "Linking shaders..." << std::endl;
+
+    GLint shaderProgram = glCreateProgram();
+    glAttachShader(shaderProgram, vertexShader);
+    glAttachShader(shaderProgram, fragmentShader);
+    glLinkProgram(shaderProgram);
+
+    glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
+    if (!success)
+    {
+        glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
+        std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n"
+                  << infoLog << std::endl;
+    }
+    glDeleteShader(vertexShader);
+    glDeleteShader(fragmentShader);
 
     /* /Shaders initialization */
 
     /* Objects setup */
 
+    std::cout << "Preparing objects..." << std::endl;
+
+    GLfloat vertices[] = {
+        -0.5f, -0.5f, 0.0f,
+        0.5f, -0.5f, 0.0f,
+        0.0f, 0.5f, 0.0f
+    };
+
+    // VBO
+    GLuint VBO;
+    glGenBuffers(1, &VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
     /* /Objects setup */
 
     // Game loop
+    std::cout << "Starting main loop!" << std::endl;
     while (!glfwWindowShouldClose(window))
     {
         // Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
@@ -85,6 +146,7 @@ int main()
     }
 
     // Terminate GLFW, clearing any resources allocated by GLFW.
+    std::cout << "Terminating application..." << std::endl;
     glfwTerminate();
     return 0;
 }
@@ -92,7 +154,9 @@ int main()
 // Is called whenever a key is pressed/released via GLFW
 void key_callback(GLFWwindow *window, int key, int scancode, int action, int mode)
 {
-    std::cout << key << std::endl;
+    std::cout << "Key: " << key << std::endl;
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+    {
         glfwSetWindowShouldClose(window, GL_TRUE);
+    }
 }
