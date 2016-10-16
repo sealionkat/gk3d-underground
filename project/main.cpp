@@ -7,6 +7,8 @@
 // GLFW
 #include <GLFW/glfw3.h>
 
+#include "Shader.h"
+
 // Function prototypes
 void key_callback(GLFWwindow *window, int key, int scancode, int action, int mode);
 
@@ -50,6 +52,22 @@ int main()
     int width, height;
     glfwGetFramebufferSize(window, &width, &height);
     glViewport(0, 0, width, height);
+
+    /* Shaders initialization */
+
+    // Vertex shader
+
+    // Fragment shader
+
+    // Check shaders
+
+    // Link shaders
+
+    /* /Shaders initialization */
+
+    /* Objects setup */
+
+    /* /Objects setup */
 
     // Game loop
     while (!glfwWindowShouldClose(window))
