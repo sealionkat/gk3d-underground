@@ -172,7 +172,7 @@ int main()
         glm::mat4 projection;
 
         model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-        view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp); //glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+        view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
         projection = glm::perspective(glm::radians(45.0f), (float)width / (float)height, 0.1f, 100.0f);
 
         GLint modelLoc = glGetUniformLocation(shaderMtn.Program, "model");
@@ -201,7 +201,7 @@ int main()
     return 0;
 }
 
-// Is called whenever a key is pressed/released via GLFW
+
 void key_callback(GLFWwindow *window, int key, int scancode, int action, int mode)
 {
     std::cout << "Key: " << key << std::endl;
@@ -254,18 +254,18 @@ void mouse_callback(GLFWwindow *window, double xpos, double ypos)
     }
 
     GLfloat xoffset = xpos - lastX;
-    GLfloat yoffset = lastY - ypos; // Reversed since y-coordinates go from bottom to left
+    GLfloat yoffset = lastY - ypos;
     lastX = xpos;
     lastY = ypos;
 
-    GLfloat sensitivity = 0.05; // Change this value to your liking
+    GLfloat sensitivity = 0.05;
     xoffset *= sensitivity;
     yoffset *= sensitivity;
 
     yaw += xoffset;
     pitch += yoffset;
 
-    // Make sure that when pitch is out of bounds, screen doesn't get flipped
+   
     if (pitch > 89.0f)
     {
         pitch = 89.0f;
