@@ -4,13 +4,13 @@
 class Settings
 {
   public:
-    static const char *WindowTitle = 'Underground';
+    static constexpr const char *WindowTitle = "Underground";
     static const int ScreenWidth = 800;
     static const int ScreenHeight = 600;
 
-    static const FOV = 45.0f;
-    static const PerspectiveNear = 0.1f;
-    static const PerspectiveFar = 100f;
-}
+    static constexpr float FOV = 45.0f;
+    static constexpr float PerspectiveNear = 0.1f;
+    static constexpr float PerspectiveFar = 100.0f;
+};
 
 #endif // !SETTINGS_H
