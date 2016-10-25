@@ -12,7 +12,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "Settings.h"
 #include "Shader.h"
+#include "Model.h"
 
 void key_callback(GLFWwindow *window, int key, int scancode, int action, int mode);
 void mouse_callback(GLFWwindow *window, double xpos, double ypos);
@@ -128,7 +130,7 @@ int main()
         {0, 1, 3,
          1, 2, 3};
 
-    // VBO, VAO
+    // VBO, VAO, EBO
     GLuint VBO, VAO, EBO;
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
@@ -191,7 +193,6 @@ int main()
         glfwSwapBuffers(window);
     }
 
-    // Terminate GLFW, clearing any resources allocated by GLFW.
     std::cout << "Terminating application..." << std::endl;
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
