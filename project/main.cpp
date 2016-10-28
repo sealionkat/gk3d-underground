@@ -20,10 +20,10 @@ void key_callback(GLFWwindow *window, int key, int scancode, int action, int mod
 void mouse_callback(GLFWwindow *window, double xpos, double ypos);
 void do_movement();
 
-const GLuint WIDTH = 800, HEIGHT = 600;
+const GLuint WIDTH = Settings::ScreenWidth, HEIGHT = Settings::ScreenHeight;
 
 // Light
-glm::vec3 lightPos(0.7f, 0.6f, 0.8f);
+glm::vec3 lightPos(2.25f, -2.25f, 2.25f);
 
 // Camera
 glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
@@ -45,12 +45,12 @@ int main()
 
     glfwInit();
 
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, Settings::OpenGLMajorVersion);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, Settings::OpenGLMinorVersion);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-    GLFWwindow *window = glfwCreateWindow(WIDTH, HEIGHT, "Underground", nullptr, nullptr);
+    GLFWwindow *window = glfwCreateWindow(WIDTH, HEIGHT, Settings::WindowTitle, nullptr, nullptr);
     if (window == nullptr)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
@@ -91,7 +91,7 @@ int main()
 
     std::cout << "Preparing objects..." << std::endl;
 
-    GLfloat vertices[] = {
+    GLfloat vertices[] = { //position, normal
         -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
          0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
          0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
@@ -137,19 +137,15 @@ int main()
 
     
 
-    // VBO, VAO, EBO
-    GLuint VBO, VAO, EBO;
+    // VBO, VAO
+    GLuint VBO, VAO;
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
-    //glGenBuffers(1, &EBO);
 
     glBindVertexArray(VAO);
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    //glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid *)0); //location 0 - position
     glEnableVertexAttribArray(0);
@@ -183,7 +179,7 @@ int main()
         GLint lightPosLoc = glGetUniformLocation(shaderMtn.Program, "lightPos");
         GLint viewPosLoc = glGetUniformLocation(shaderMtn.Program, "viewPos");
 
-        glUniform3f(objectColorLoc, 1.0f, 0.5f, 0.31f);
+        glUniform3f(objectColorLoc, 0.7f, 0.7f, 0.7f);
         glUniform3f(lightColorLoc,  1.0f, 1.0f, 1.0f);
         glUniform3f(lightPosLoc,    lightPos.x, lightPos.y, lightPos.z);
         glUniform3f(viewPosLoc,     cameraPos.x, cameraPos.y, cameraPos.z);
@@ -194,7 +190,7 @@ int main()
         glm::mat4 view;
         glm::mat4 projection;
 
-        model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+        model = glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
         view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
         projection = glm::perspective(glm::radians(45.0f), (float)width / (float)height, 0.1f, 100.0f);
 
@@ -217,7 +213,6 @@ int main()
     std::cout << "Terminating application..." << std::endl;
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
-    glDeleteBuffers(1, &EBO);
 
     glfwTerminate();
     return 0;
@@ -246,20 +241,20 @@ void key_callback(GLFWwindow *window, int key, int scancode, int action, int mod
 
 void do_movement()
 {
-    GLfloat cameraSpeed = 5.0f * deltaTime;
-    if (keys[GLFW_KEY_W])
+    GLfloat cameraSpeed = Settings::CameraSpeed * deltaTime;
+    if (keys[Settings::ForwardKey])
     {
         cameraPos += cameraSpeed * cameraFront;
     }
-    if (keys[GLFW_KEY_S])
+    if (keys[Settings::BackwardKey])
     {
         cameraPos -= cameraSpeed * cameraFront;
     }
-    if (keys[GLFW_KEY_A])
+    if (keys[Settings::LeftKey])
     {
         cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
     }
-    if (keys[GLFW_KEY_D])
+    if (keys[Settings::RightKey])
     {
         cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
     }
@@ -280,7 +275,7 @@ void mouse_callback(GLFWwindow *window, double xpos, double ypos)
     lastX = xpos;
     lastY = ypos;
 
-    GLfloat sensitivity = 0.05;
+    GLfloat sensitivity = Settings::MouseSensitivity;
     xoffset *= sensitivity;
     yoffset *= sensitivity;
 

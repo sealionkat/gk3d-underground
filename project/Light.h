@@ -6,11 +6,13 @@
 class Light
 {
   public:
-    vec3 pos;
+    vec3 Position;
+    vec3 Color;
 
-    Light(vec3 pos)
+    Light(vec3 position, vec3 color)
     {
-        this.pos = pos;
+        this.Position = position;
+        this.Color = color;
     }
 }
 
