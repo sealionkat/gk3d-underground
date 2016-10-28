@@ -1,4 +1,8 @@
 #version 330 core
+
+#define POINT_LIGHTS_NR = 2;
+#define SPOT_LIGHTS_NR = 2;
+
 struct Material
 {
     vec3 ambient;
@@ -7,11 +11,25 @@ struct Material
     float shininess;
 };
 
+struct PointLight 
+{
+    vec3 position;
+    vec3 color;
+};
+
+
+/*struct SpotLight
+{
+
+}; */
+
 
 out vec4 color;
 
 in vec3 FragPos;
 in vec3 Normal;
+
+//uniform PointLight pointLights[POINT_LIGHTS_NR];
 
 uniform vec3 lightPos;
 uniform vec3 viewPos;
@@ -19,24 +37,43 @@ uniform vec3 lightColor;
 uniform vec3 objectColor;
 uniform Material material;
 
+
+vec3 CalculatePointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir) 
+{
+  // Ambient
+  vec3 ambient = light.color * material.ambient;
+
+  // Diffuse
+  vec3 norm = normalize(normal);
+  vec3 lightDir = normalize(light.position - fragPos);
+  float diff = max(dot(norm, lightDir), 0.0f);
+  vec3 diffuse = light.color * (diff * material.diffuse);
+
+  // Specular
+  vec3 reflectDir = reflect(-lightDir, norm);
+  float spec = pow(max(dot(viewDir, reflectDir), 0.0f), material.shininess);
+  vec3 specular = light.color * (material.specular * spec);
+
+  return (ambient + diffuse + specular) * objectColor;  
+}
+
+vec3 CalculateSpotLight() 
+{
+    vec3 res = vec3(1.0f, 1.0f, 1.0f);
+
+    return res;
+}
+
+
 void main()
 {
-    // Ambient
-    vec3 ambient = lightColor * material.ambient;
-
-    // Diffuse
-    vec3 norm = normalize(Normal);
-    vec3 lightDir = normalize(lightPos - FragPos);
-    float diff = max(dot(norm, lightDir), 0.0f);
-    vec3 diffuse = lightColor * (diff * material.diffuse);
-
-    // Specular
     vec3 viewDir = normalize(viewPos - FragPos);
-    vec3 reflectDir = reflect(-lightDir, norm); //watch out for -lightDir and reflect!
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
-    vec3 specular = lightColor * (material.specular * spec);
 
-    vec3 result = (ambient + diffuse + specular) * objectColor;
+    PointLight pLight;
+    pLight.position = lightPos;
+    pLight.color = lightColor;
+
+    vec3 result = CalculatePointLight(pLight, Normal, FragPos, viewDir);
 
     color = vec4(result, 1.0f);
 }

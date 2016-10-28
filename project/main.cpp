@@ -192,7 +192,7 @@ int main()
         glUniform3f(matAmbientLoc, 1.0f, 0.5f, 0.31f);
         glUniform3f(matDiffuseLoc, 1.0f, 0.5f, 0.31f);
         glUniform3f(matSpecularLoc, 0.5f, 0.5f, 0.5f);
-        glUniform1f(matShinyLoc, 256.0f);
+        glUniform1f(matShinyLoc, 32.0f);
 
 
 
