@@ -32,7 +32,7 @@ void main()
 
     // Specular
     vec3 viewDir = normalize(viewPos - FragPos);
-    vec3 reflectDir = reflect(lightDir, norm); //watch out for -lightDir and reflect!
+    vec3 reflectDir = reflect(-lightDir, norm); //watch out for -lightDir and reflect!
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
     vec3 specular = lightColor * (material.specular * spec);
 

@@ -19,7 +19,7 @@ public:
   static constexpr const GLchar *FragmentPath = "shaders/fragmentShader.glsl";
 
   static constexpr const char *WindowTitle = "Underground";
-  static const GLuint ScreenWidth = 1024;
+  static const GLuint ScreenWidth = 1366;
   static const GLuint ScreenHeight = 768;
 
   static constexpr const float FOV = 45.0f;

@@ -23,7 +23,7 @@ void do_movement();
 const GLuint WIDTH = Settings::ScreenWidth, HEIGHT = Settings::ScreenHeight;
 
 // Light
-glm::vec3 lightPos(2.25f, -2.25f, 2.25f);
+glm::vec3 lightPos(0.0f, 0.0f, 4.0f);
 
 // Camera
 glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
@@ -192,7 +192,7 @@ int main()
         glUniform3f(matAmbientLoc, 1.0f, 0.5f, 0.31f);
         glUniform3f(matDiffuseLoc, 1.0f, 0.5f, 0.31f);
         glUniform3f(matSpecularLoc, 0.5f, 0.5f, 0.5f);
-        glUniform1f(matShinyLoc, 32.0f);
+        glUniform1f(matShinyLoc, 256.0f);
 
 
 
@@ -202,7 +202,7 @@ int main()
 
         model = glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
         view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
-        projection = glm::perspective(glm::radians(45.0f), (float)width / (float)height, 0.1f, 100.0f);
+        projection = glm::perspective(glm::radians(Settings::FOV), (float)width / (float)height, Settings::PerspectiveNear, Settings::PerspectiveFar);
 
         GLint modelLoc = glGetUniformLocation(shaderMtn.Program, "model");
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
