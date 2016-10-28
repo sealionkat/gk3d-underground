@@ -179,10 +179,20 @@ int main()
         GLint lightPosLoc = glGetUniformLocation(shaderMtn.Program, "lightPos");
         GLint viewPosLoc = glGetUniformLocation(shaderMtn.Program, "viewPos");
 
-        glUniform3f(objectColorLoc, 0.7f, 0.7f, 0.7f);
+        glUniform3f(objectColorLoc, 1.0f, 0.5f, 0.31f);
         glUniform3f(lightColorLoc,  1.0f, 1.0f, 1.0f);
         glUniform3f(lightPosLoc,    lightPos.x, lightPos.y, lightPos.z);
         glUniform3f(viewPosLoc,     cameraPos.x, cameraPos.y, cameraPos.z);
+
+        GLint matAmbientLoc = glGetUniformLocation(shaderMtn.Program, "material.ambient");
+        GLint matDiffuseLoc = glGetUniformLocation(shaderMtn.Program, "material.diffuse");
+        GLint matSpecularLoc = glGetUniformLocation(shaderMtn.Program, "material.specular");
+        GLint matShinyLoc = glGetUniformLocation(shaderMtn.Program, "material.shininess");
+
+        glUniform3f(matAmbientLoc, 1.0f, 0.5f, 0.31f);
+        glUniform3f(matDiffuseLoc, 1.0f, 0.5f, 0.31f);
+        glUniform3f(matSpecularLoc, 0.5f, 0.5f, 0.5f);
+        glUniform1f(matShinyLoc, 32.0f);
 
 
 
