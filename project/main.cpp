@@ -194,6 +194,14 @@ int main()
         glUniform3f(matSpecularLoc, 0.5f, 0.5f, 0.5f);
         glUniform1f(matShinyLoc, 32.0f);
 
+        GLint lightConstLoc = glGetUniformLocation(shaderMtn.Program, "lightConstant");
+        GLint lightLinLoc = glGetUniformLocation(shaderMtn.Program, "lightLinear");
+        GLint lightQuadLoc = glGetUniformLocation(shaderMtn.Program, "lightQuadratic");
+
+        glUniform1f(lightConstLoc, 1.0f);
+        glUniform1f(lightLinLoc, 0.35f);
+        glUniform1f(lightQuadLoc, 0.2f);
+
 
 
         glm::mat4 model;
