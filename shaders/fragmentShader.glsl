@@ -18,10 +18,12 @@ struct PointLight
 };
 
 
-/*struct SpotLight
+struct SpotLight
 {
-
-}; */
+    vec3 position;
+    vec3 color;
+    float cutOff;
+};
 
 
 out vec4 color;
@@ -44,7 +46,6 @@ vec3 CalculatePointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewD
   vec3 ambient = light.color * material.ambient;
 
   // Diffuse
-  vec3 norm = normalize(normal);
   vec3 lightDir = normalize(light.position - fragPos);
   float diff = max(dot(norm, lightDir), 0.0f);
   vec3 diffuse = light.color * (diff * material.diffuse);
@@ -67,13 +68,14 @@ vec3 CalculateSpotLight()
 
 void main()
 {
+    vec3 norm = normalize(Normal);
     vec3 viewDir = normalize(viewPos - FragPos);
 
     PointLight pLight;
     pLight.position = lightPos;
     pLight.color = lightColor;
 
-    vec3 result = CalculatePointLight(pLight, Normal, FragPos, viewDir);
+    vec3 result = CalculatePointLight(pLight, norm, FragPos, viewDir);
 
     color = vec4(result, 1.0f);
 }
