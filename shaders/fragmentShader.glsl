@@ -37,21 +37,20 @@ in vec3 Normal;
 
 //uniform PointLight pointLights[POINT_LIGHTS_NR];
 
-uniform vec3 lightPos;
+uniform vec3 lightPos; //light
 uniform vec3 viewPos;
-uniform vec3 lightColor;
+uniform vec3 lightColor; //light
 uniform vec3 objectColor;
 uniform Material material;
-uniform float lightConstant;
-uniform float lightLinear;
-uniform float lightQuadratic;
+uniform float lightConstant; //light
+uniform float lightLinear; //light
+uniform float lightQuadratic; //light
 
 
 vec3 CalculatePointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir) 
 {
-
-    float distance = length(light.position - fragPos);
-    float attenuation = 1.0f / (light.constant + light.linear * distance + light.quadratic * (distance * distance));
+  float distance = length(light.position - fragPos);
+  float attenuation = 1.0f / (light.constant + light.linear * distance + light.quadratic * (distance * distance));
 
   // Ambient
   vec3 ambient = light.color * material.ambient;

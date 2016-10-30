@@ -135,17 +135,81 @@ int main()
         -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
     };
 
+
+
+    GLfloat verticesBig[] = { //position, normal
+        -5.0f, -5.0f, -5.0f,  0.0f,  0.0f, 1.0f,
+         5.0f, -5.0f, -5.0f,  0.0f,  0.0f, 1.0f,
+         5.0f,  5.0f, -5.0f,  0.0f,  0.0f, 1.0f,
+         5.0f,  5.0f, -5.0f,  0.0f,  0.0f, 1.0f,
+        -5.0f,  5.0f, -5.0f,  0.0f,  0.0f, 1.0f,
+        -5.0f, -5.0f, -5.0f,  0.0f,  0.0f, 1.0f,
+
+        -5.0f, -5.0f,  5.0f,  0.0f,  0.0f,  -1.0f,
+         5.0f, -5.0f,  5.0f,  0.0f,  0.0f,  -1.0f,
+         5.0f,  5.0f,  5.0f,  0.0f,  0.0f,  -1.0f,
+         5.0f,  5.0f,  5.0f,  0.0f,  0.0f,  -1.0f,
+        -5.0f,  5.0f,  5.0f,  0.0f,  0.0f,  -1.0f,
+        -5.0f, -5.0f,  5.0f,  0.0f,  0.0f,  -1.0f,
+
+        -5.0f,  5.0f,  5.0f, 1.0f,  0.0f,  0.0f,
+        -5.0f,  5.0f, -5.0f, 1.0f,  0.0f,  0.0f,
+        -5.0f, -5.0f, -5.0f, 1.0f,  0.0f,  0.0f,
+        -5.0f, -5.0f, -5.0f, 1.0f,  0.0f,  0.0f,
+        -5.0f, -5.0f,  5.0f, 1.0f,  0.0f,  0.0f,
+        -5.0f,  5.0f,  5.0f, 1.0f,  0.0f,  0.0f,
+
+         5.0f,  5.0f,  5.0f,  -1.0f,  0.0f,  0.0f,
+         5.0f,  5.0f, -5.0f,  -1.0f,  0.0f,  0.0f,
+         5.0f, -5.0f, -5.0f,  -1.0f,  0.0f,  0.0f,
+         5.0f, -5.0f, -5.0f,  -1.0f,  0.0f,  0.0f,
+         5.0f, -5.0f,  5.0f,  -1.0f,  0.0f,  0.0f,
+         5.0f,  5.0f,  5.0f,  -1.0f,  0.0f,  0.0f,
+
+        -5.0f, -5.0f, -5.0f,  0.0f, 1.0f,  0.0f,
+         5.0f, -5.0f, -5.0f,  0.0f, 1.0f,  0.0f,
+         5.0f, -5.0f,  5.0f,  0.0f, 1.0f,  0.0f,
+         5.0f, -5.0f,  5.0f,  0.0f, 1.0f,  0.0f,
+        -5.0f, -5.0f,  5.0f,  0.0f, 1.0f,  0.0f,
+        -5.0f, -5.0f, -5.0f,  0.0f, 1.0f,  0.0f,
+
+        -5.0f,  5.0f, -5.0f,  0.0f,  -1.0f,  0.0f,
+         5.0f,  5.0f, -5.0f,  0.0f,  -1.0f,  0.0f,
+         5.0f,  5.0f,  5.0f,  0.0f,  -1.0f,  0.0f,
+         5.0f,  5.0f,  5.0f,  0.0f,  -1.0f,  0.0f,
+        -5.0f,  5.0f,  5.0f,  0.0f,  -1.0f,  0.0f,
+        -5.0f,  5.0f, -5.0f,  0.0f,  -1.0f,  0.0f
+    };
+
     
 
     // VBO, VAO
-    GLuint VBO, VAO;
+    GLuint VBO, VAO, VBOBig, VAOBig;
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
+    glGenVertexArrays(1, &VAOBig);
+    glGenBuffers(1, &VBOBig);
 
     glBindVertexArray(VAO);
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid *)0); //location 0 - position
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat))); //location 1 - normal
+    glEnableVertexAttribArray(1);
+
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+    glBindVertexArray(0);
+
+
+
+    glBindVertexArray(VAOBig);
+
+    glBindBuffer(GL_ARRAY_BUFFER, VBOBig);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(verticesBig), verticesBig, GL_STATIC_DRAW);
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid *)0); //location 0 - position
     glEnableVertexAttribArray(0);
@@ -199,8 +263,8 @@ int main()
         GLint lightQuadLoc = glGetUniformLocation(shaderMtn.Program, "lightQuadratic");
 
         glUniform1f(lightConstLoc, 1.0f);
-        glUniform1f(lightLinLoc, 0.35f);
-        glUniform1f(lightQuadLoc, 0.2f);
+        glUniform1f(lightLinLoc, 0.09f);
+        glUniform1f(lightQuadLoc, 0.032f);
 
 
 
@@ -222,6 +286,10 @@ int main()
         glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
         glBindVertexArray(VAO);
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+        glBindVertexArray(0);
+
+        glBindVertexArray(VAOBig);
         glDrawArrays(GL_TRIANGLES, 0, 36);
         glBindVertexArray(0);
 
