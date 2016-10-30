@@ -256,14 +256,25 @@ int main()
         glUniform3f(glGetUniformLocation(shaderMtn.Program, "pointLights[0].position"), 0.0f, 4.0f, 12.0f);
         glUniform3f(glGetUniformLocation(shaderMtn.Program, "pointLights[0].color"), 1.0f, 1.0f, 1.0f);
         glUniform1f(glGetUniformLocation(shaderMtn.Program, "pointLights[0].constant"), 1.0f);
-        glUniform1f(glGetUniformLocation(shaderMtn.Program, "pointLights[0].linear"), 0.09);
-        glUniform1f(glGetUniformLocation(shaderMtn.Program, "pointLights[0].quadratic"), 0.032);
+        glUniform1f(glGetUniformLocation(shaderMtn.Program, "pointLights[0].linear"), 0.1f);
+        glUniform1f(glGetUniformLocation(shaderMtn.Program, "pointLights[0].quadratic"), 0.1f);
         // Point light 2
         glUniform3f(glGetUniformLocation(shaderMtn.Program, "pointLights[1].position"), 0.0f, 4.0f, -12.0f);
         glUniform3f(glGetUniformLocation(shaderMtn.Program, "pointLights[1].color"), 1.0f, 1.0f, 1.0f);
         glUniform1f(glGetUniformLocation(shaderMtn.Program, "pointLights[1].constant"), 1.0f);
-        glUniform1f(glGetUniformLocation(shaderMtn.Program, "pointLights[1].linear"), 0.09);
-        glUniform1f(glGetUniformLocation(shaderMtn.Program, "pointLights[1].quadratic"), 0.032);
+        glUniform1f(glGetUniformLocation(shaderMtn.Program, "pointLights[1].linear"), 0.1f);
+        glUniform1f(glGetUniformLocation(shaderMtn.Program, "pointLights[1].quadratic"), 0.1f);
+
+        // Spotlight
+        glUniform3f(glGetUniformLocation(shaderMtn.Program, "spotLight.position"), cameraPos.x, cameraPos.y, cameraPos.z);
+        glUniform3f(glGetUniformLocation(shaderMtn.Program, "spotLight.direction"), cameraFront.x, cameraFront.y, cameraFront.z);
+        glUniform3f(glGetUniformLocation(shaderMtn.Program, "spotLight.color"), 1.0f, 1.0f, 1.0f);
+        glUniform1f(glGetUniformLocation(shaderMtn.Program, "spotLight.cutOff"), glm::cos(glm::radians(12.5f)));
+        glUniform1f(glGetUniformLocation(shaderMtn.Program, "spotLight.outerCutOff"), glm::cos(glm::radians(17.5f)));
+        glUniform1f(glGetUniformLocation(shaderMtn.Program, "spotLight.constant"), 1.0f);
+        glUniform1f(glGetUniformLocation(shaderMtn.Program, "spotLight.linear"), 0.5f);
+        glUniform1f(glGetUniformLocation(shaderMtn.Program, "spotLight.quadratic"), 0.05f);
+
 
 
         glm::mat4 model;
