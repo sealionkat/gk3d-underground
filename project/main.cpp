@@ -23,10 +23,10 @@ void do_movement();
 const GLuint WIDTH = Settings::ScreenWidth, HEIGHT = Settings::ScreenHeight;
 
 // Light
-glm::vec3 lightPos(0.0f, 0.0f, 4.0f);
+glm::vec3 lightPos(0.0f, 4.0f, 0.0f);
 
 // Camera
-glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
+glm::vec3 cameraPos = glm::vec3(0.0f, 1.25f, 0.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 GLfloat yaw = -90.0f;
@@ -91,48 +91,55 @@ int main()
 
     std::cout << "Preparing objects..." << std::endl;
 
-    GLfloat vertices[] = {//position, normal
-                          -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
-                          0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
-                          0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
-                          0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
-                          -0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
-                          -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
+    GLfloat vertices[] = {
+        -3.0f, -1.0f, 5.0f, 0.0f, 0.0f, 1.0f, //front
+        3.0f, 1.0f, 5.0f, 0.0f, 0.0f, 1.0f,
+        3.0f, -1.0f, 5.0f, 0.0f, 0.0f, 1.0f,
 
-                          -0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
-                          0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
-                          0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
-                          0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
-                          -0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
-                          -0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
+        -3.0f, -1.0f, 5.0f, 0.0f, 0.0f, 1.0f,
+        3.0f, 1.0f, 5.0f, 0.0f, 0.0f, 1.0f,
+        -3.0f, 1.0f, 5.0f, 0.0f, 0.0f, 1.0f,
 
-                          -0.5f, 0.5f, 0.5f, -1.0f, 0.0f, 0.0f,
-                          -0.5f, 0.5f, -0.5f, -1.0f, 0.0f, 0.0f,
-                          -0.5f, -0.5f, -0.5f, -1.0f, 0.0f, 0.0f,
-                          -0.5f, -0.5f, -0.5f, -1.0f, 0.0f, 0.0f,
-                          -0.5f, -0.5f, 0.5f, -1.0f, 0.0f, 0.0f,
-                          -0.5f, 0.5f, 0.5f, -1.0f, 0.0f, 0.0f,
+        3.0f, 1.0f, 5.0f, 1.0f, 0.0f, 0.0f, //right
+        3.0f, 1.0f, -5.0f, 1.0f, 0.0f, 0.0f,
+        3.0f, -1.0f, 5.0f, 1.0f, 0.0f, 0.0f,
 
-                          0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f,
-                          0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f,
-                          0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f,
-                          0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f,
-                          0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f,
-                          0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f,
+        3.0f, -1.0f, 5.0f, 1.0f, 0.0f, 0.0f,
+        3.0f, 1.0f, -5.0f, 1.0f, 0.0f, 0.0f,
+        3.0f, -1.0f, -5.0f, 1.0f, 0.0f, 0.0f,
 
-                          -0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f,
-                          0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f,
-                          0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f,
-                          0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f,
-                          -0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f,
-                          -0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f,
+        -3.0f, -1.0f, 5.0f, 0.0f, -1.0f, 0.0f, //down
+        -3.0f, -1.0f, -5.0f, 0.0f, -1.0f, 0.0f,
+        3.0f, -1.0f, -5.0f, 0.0f, -1.0f, 0.0f,
 
-                          -0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
-                          0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
-                          0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f,
-                          0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f,
-                          -0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f,
-                          -0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f};
+        -3.0f, -1.0f, 5.0f, 0.0f, -1.0f, 0.0f,
+        3.0f, -1.0f, -5.0f, 0.0f, -1.0f, 0.0f,
+        3.0f, -1.0f, 5.0f, 0.0f, -1.0f, 0.0f,
+
+        -3.0f, -1.0f, 5.0f, -1.0f, 0.0f, 0.0f, //left
+        -3.0f, 1.0f, 5.0f, -1.0f, 0.0f, 0.0f,
+        -3.0f, 1.0f, -5.0f, -1.0f, 0.0f, 0.0f,
+
+        -3.0f, -1.0f, 5.0f, -1.0f, 0.0f, 0.0f,
+        -3.0f, 1.0f, -5.0f, -1.0f, 0.0f, 0.0f,
+        -3.0f, -1.0f, -5.0f, -1.0f, 0.0f, 0.0f,
+
+        -3.0f, -1.0f, -5.0f, 0.0f, 0.0f, -1.0f, //back
+        -3.0f, 1.0f, -5.0f, 0.0f, 0.0f, -1.0f,
+        3.0f, 1.0f, -5.0f, 0.0f, 0.0f, -1.0f,
+
+        3.0f, 1.0f, -5.0f, 0.0f, 0.0f, -1.0f,
+        3.0f, -1.0f, -5.0f, 0.0f, 0.0f, -1.0f,
+        -3.0f, -1.0f, -5.0f, 0.0f, 0.0f, -1.0f,
+
+        -3.0f, 1.0f, 5.0f, 0.0f, 1.0f, 0.0f, //up
+        -3.0f, 1.0f, -5.0f, 0.0f, 1.0f, 0.0f,
+        3.0f, 1.0f, -5.0f, 0.0f, 1.0f, 0.0f,
+
+        3.0f, 1.0f, -5.0f, 0.0f, 1.0f, 0.0f,
+        3.0f, 1.0f, 5.0f, 0.0f, 1.0f, 0.0f,
+        -3.0f, 1.0f, 5.0f, 0.0f, 1.0f, 0.0f
+    };
 
     GLfloat verticesBig[] = {//position, normal
                              -5.0f, -5.0f, -5.0f, 0.0f, 0.0f, 1.0f,
@@ -276,19 +283,23 @@ int main()
         glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
         glBindVertexArray(VAO);
-        glDrawArrays(GL_TRIANGLES, 0, 36);
+        glDrawArrays(GL_TRIANGLES, 0, 36); //36 for whole cube
         glBindVertexArray(0);
 
+/*
         glBindVertexArray(VAOBig);
         glDrawArrays(GL_TRIANGLES, 0, 36);
         glBindVertexArray(0);
+        */
 
         glfwSwapBuffers(window);
     }
 
     std::cout << "Terminating application..." << std::endl;
     glDeleteVertexArrays(1, &VAO);
+    glDeleteVertexArrays(1, &VAOBig);
     glDeleteBuffers(1, &VBO);
+    glDeleteBuffers(1, &VBOBig);
 
     glfwTerminate();
     return 0;
