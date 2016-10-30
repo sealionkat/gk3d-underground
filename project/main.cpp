@@ -22,11 +22,8 @@ void do_movement();
 
 const GLuint WIDTH = Settings::ScreenWidth, HEIGHT = Settings::ScreenHeight;
 
-// Light
-glm::vec3 lightPos(0.0f, 4.0f, 0.0f);
-
 // Camera
-glm::vec3 cameraPos = glm::vec3(0.0f, 1.25f, 0.0f);
+glm::vec3 cameraPos = glm::vec3(0.0f, 2.0f, 0.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 GLfloat yaw = -90.0f;
@@ -246,13 +243,9 @@ int main()
         shaderMtn.Use();
 
         GLint objectColorLoc = glGetUniformLocation(shaderMtn.Program, "objectColor");
-        GLint lightColorLoc = glGetUniformLocation(shaderMtn.Program, "lightColor");
-        GLint lightPosLoc = glGetUniformLocation(shaderMtn.Program, "lightPos");
         GLint viewPosLoc = glGetUniformLocation(shaderMtn.Program, "viewPos");
 
         glUniform3f(objectColorLoc, 0.75f, 0.75f, 0.75f);
-        glUniform3f(lightColorLoc, 1.0f, 1.0f, 1.0f);
-        glUniform3f(lightPosLoc, lightPos.x, lightPos.y, lightPos.z);
         glUniform3f(viewPosLoc, cameraPos.x, cameraPos.y, cameraPos.z);
 
         GLint matAmbientLoc = glGetUniformLocation(shaderMtn.Program, "material.ambient");
@@ -265,13 +258,20 @@ int main()
         glUniform3f(matSpecularLoc, 0.5f, 0.5f, 0.5f);
         glUniform1f(matShinyLoc, 32.0f);
 
-        GLint lightConstLoc = glGetUniformLocation(shaderMtn.Program, "lightConstant");
-        GLint lightLinLoc = glGetUniformLocation(shaderMtn.Program, "lightLinear");
-        GLint lightQuadLoc = glGetUniformLocation(shaderMtn.Program, "lightQuadratic");
 
-        glUniform1f(lightConstLoc, 1.0f);
-        glUniform1f(lightLinLoc, 0.09f);
-        glUniform1f(lightQuadLoc, 0.032f);
+        // Point lights
+        glUniform3f(glGetUniformLocation(shaderMtn.Program, "pointLights[0].position"), 0.0f, 4.0f, 12.0f);
+        glUniform3f(glGetUniformLocation(shaderMtn.Program, "pointLights[0].color"), 1.0f, 1.0f, 1.0f);
+        glUniform1f(glGetUniformLocation(shaderMtn.Program, "pointLights[0].constant"), 1.0f);
+        glUniform1f(glGetUniformLocation(shaderMtn.Program, "pointLights[0].linear"), 0.09);
+        glUniform1f(glGetUniformLocation(shaderMtn.Program, "pointLights[0].quadratic"), 0.032);
+        // Point light 2
+        glUniform3f(glGetUniformLocation(shaderMtn.Program, "pointLights[1].position"), 0.0f, 4.0f, -12.0f);
+        glUniform3f(glGetUniformLocation(shaderMtn.Program, "pointLights[1].color"), 1.0f, 1.0f, 1.0f);
+        glUniform1f(glGetUniformLocation(shaderMtn.Program, "pointLights[1].constant"), 1.0f);
+        glUniform1f(glGetUniformLocation(shaderMtn.Program, "pointLights[1].linear"), 0.09);
+        glUniform1f(glGetUniformLocation(shaderMtn.Program, "pointLights[1].quadratic"), 0.032);
+
 
         glm::mat4 model;
         glm::mat4 view;

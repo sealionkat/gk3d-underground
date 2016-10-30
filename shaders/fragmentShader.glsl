@@ -1,7 +1,7 @@
 #version 330 core
 
-#define POINT_LIGHTS_NR = 2;
-#define SPOT_LIGHTS_NR = 2;
+#define POINT_LIGHTS_NR 2
+#define SPOT_LIGHTS_NR 2
 
 struct Material
 {
@@ -35,16 +35,11 @@ out vec4 color;
 in vec3 FragPos;
 in vec3 Normal;
 
-//uniform PointLight pointLights[POINT_LIGHTS_NR];
+uniform PointLight pointLights[POINT_LIGHTS_NR];
 
-uniform vec3 lightPos; //light
 uniform vec3 viewPos;
-uniform vec3 lightColor; //light
 uniform vec3 objectColor;
 uniform Material material;
-uniform float lightConstant; //light
-uniform float lightLinear; //light
-uniform float lightQuadratic; //light
 
 
 vec3 CalculatePointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir) 
@@ -65,7 +60,7 @@ vec3 CalculatePointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewD
   float spec = pow(max(dot(viewDir, reflectDir), 0.0f), material.shininess);
   vec3 specular = light.color * (material.specular * spec);
 
-  return (ambient + diffuse + specular) * attenuation * objectColor;  
+  return (ambient + diffuse + specular) * attenuation;  
 }
 
 vec3 CalculateSpotLight() 
@@ -81,14 +76,13 @@ void main()
     vec3 norm = normalize(Normal);
     vec3 viewDir = normalize(viewPos - FragPos);
 
-    PointLight pLight;
-    pLight.position = lightPos;
-    pLight.color = lightColor;
-    pLight.constant = lightConstant;
-    pLight.linear = lightLinear;
-    pLight.quadratic = lightQuadratic;
+    vec3 result = vec3(0.0f, 0.0f, 0.0f);
 
-    vec3 result = CalculatePointLight(pLight, norm, FragPos, viewDir);
+    for(int i = 0; i < POINT_LIGHTS_NR; ++i) {
+        result += CalculatePointLight(pointLights[i], norm, FragPos, viewDir);
+    }
+
+    result *= objectColor;
 
     color = vec4(result, 1.0f);
 }
