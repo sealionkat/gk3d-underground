@@ -91,97 +91,91 @@ int main()
 
     std::cout << "Preparing objects..." << std::endl;
 
-    GLfloat vertices[] = { //position, normal
-        -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-         0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-         0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-         0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-        -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+    GLfloat vertices[] = {//position, normal
+                          -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
+                          0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
+                          0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
+                          0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
+                          -0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
+                          -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f,
 
-        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-         0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-         0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-         0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+                          -0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
+                          0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
+                          0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
+                          0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
+                          -0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
+                          -0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
 
-        -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-        -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-        -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-        -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-        -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-        -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+                          -0.5f, 0.5f, 0.5f, -1.0f, 0.0f, 0.0f,
+                          -0.5f, 0.5f, -0.5f, -1.0f, 0.0f, 0.0f,
+                          -0.5f, -0.5f, -0.5f, -1.0f, 0.0f, 0.0f,
+                          -0.5f, -0.5f, -0.5f, -1.0f, 0.0f, 0.0f,
+                          -0.5f, -0.5f, 0.5f, -1.0f, 0.0f, 0.0f,
+                          -0.5f, 0.5f, 0.5f, -1.0f, 0.0f, 0.0f,
 
-         0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-         0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-         0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-         0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-         0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-         0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+                          0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f,
+                          0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f,
+                          0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f,
+                          0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f,
+                          0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f,
+                          0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f,
 
-        -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-         0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-         0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-         0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+                          -0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f,
+                          0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f,
+                          0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f,
+                          0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f,
+                          -0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f,
+                          -0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f,
 
-        -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-         0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-         0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-         0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-        -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
-    };
+                          -0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+                          0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+                          0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f,
+                          0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f,
+                          -0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f,
+                          -0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f};
 
+    GLfloat verticesBig[] = {//position, normal
+                             -5.0f, -5.0f, -5.0f, 0.0f, 0.0f, 1.0f,
+                             5.0f, -5.0f, -5.0f, 0.0f, 0.0f, 1.0f,
+                             5.0f, 5.0f, -5.0f, 0.0f, 0.0f, 1.0f,
+                             5.0f, 5.0f, -5.0f, 0.0f, 0.0f, 1.0f,
+                             -5.0f, 5.0f, -5.0f, 0.0f, 0.0f, 1.0f,
+                             -5.0f, -5.0f, -5.0f, 0.0f, 0.0f, 1.0f,
 
+                             -5.0f, -5.0f, 5.0f, 0.0f, 0.0f, -1.0f,
+                             5.0f, -5.0f, 5.0f, 0.0f, 0.0f, -1.0f,
+                             5.0f, 5.0f, 5.0f, 0.0f, 0.0f, -1.0f,
+                             5.0f, 5.0f, 5.0f, 0.0f, 0.0f, -1.0f,
+                             -5.0f, 5.0f, 5.0f, 0.0f, 0.0f, -1.0f,
+                             -5.0f, -5.0f, 5.0f, 0.0f, 0.0f, -1.0f,
 
-    GLfloat verticesBig[] = { //position, normal
-        -5.0f, -5.0f, -5.0f,  0.0f,  0.0f, 1.0f,
-         5.0f, -5.0f, -5.0f,  0.0f,  0.0f, 1.0f,
-         5.0f,  5.0f, -5.0f,  0.0f,  0.0f, 1.0f,
-         5.0f,  5.0f, -5.0f,  0.0f,  0.0f, 1.0f,
-        -5.0f,  5.0f, -5.0f,  0.0f,  0.0f, 1.0f,
-        -5.0f, -5.0f, -5.0f,  0.0f,  0.0f, 1.0f,
+                             -5.0f, 5.0f, 5.0f, 1.0f, 0.0f, 0.0f,
+                             -5.0f, 5.0f, -5.0f, 1.0f, 0.0f, 0.0f,
+                             -5.0f, -5.0f, -5.0f, 1.0f, 0.0f, 0.0f,
+                             -5.0f, -5.0f, -5.0f, 1.0f, 0.0f, 0.0f,
+                             -5.0f, -5.0f, 5.0f, 1.0f, 0.0f, 0.0f,
+                             -5.0f, 5.0f, 5.0f, 1.0f, 0.0f, 0.0f,
 
-        -5.0f, -5.0f,  5.0f,  0.0f,  0.0f,  -1.0f,
-         5.0f, -5.0f,  5.0f,  0.0f,  0.0f,  -1.0f,
-         5.0f,  5.0f,  5.0f,  0.0f,  0.0f,  -1.0f,
-         5.0f,  5.0f,  5.0f,  0.0f,  0.0f,  -1.0f,
-        -5.0f,  5.0f,  5.0f,  0.0f,  0.0f,  -1.0f,
-        -5.0f, -5.0f,  5.0f,  0.0f,  0.0f,  -1.0f,
+                             5.0f, 5.0f, 5.0f, -1.0f, 0.0f, 0.0f,
+                             5.0f, 5.0f, -5.0f, -1.0f, 0.0f, 0.0f,
+                             5.0f, -5.0f, -5.0f, -1.0f, 0.0f, 0.0f,
+                             5.0f, -5.0f, -5.0f, -1.0f, 0.0f, 0.0f,
+                             5.0f, -5.0f, 5.0f, -1.0f, 0.0f, 0.0f,
+                             5.0f, 5.0f, 5.0f, -1.0f, 0.0f, 0.0f,
 
-        -5.0f,  5.0f,  5.0f, 1.0f,  0.0f,  0.0f,
-        -5.0f,  5.0f, -5.0f, 1.0f,  0.0f,  0.0f,
-        -5.0f, -5.0f, -5.0f, 1.0f,  0.0f,  0.0f,
-        -5.0f, -5.0f, -5.0f, 1.0f,  0.0f,  0.0f,
-        -5.0f, -5.0f,  5.0f, 1.0f,  0.0f,  0.0f,
-        -5.0f,  5.0f,  5.0f, 1.0f,  0.0f,  0.0f,
+                             -5.0f, -5.0f, -5.0f, 0.0f, 1.0f, 0.0f,
+                             5.0f, -5.0f, -5.0f, 0.0f, 1.0f, 0.0f,
+                             5.0f, -5.0f, 5.0f, 0.0f, 1.0f, 0.0f,
+                             5.0f, -5.0f, 5.0f, 0.0f, 1.0f, 0.0f,
+                             -5.0f, -5.0f, 5.0f, 0.0f, 1.0f, 0.0f,
+                             -5.0f, -5.0f, -5.0f, 0.0f, 1.0f, 0.0f,
 
-         5.0f,  5.0f,  5.0f,  -1.0f,  0.0f,  0.0f,
-         5.0f,  5.0f, -5.0f,  -1.0f,  0.0f,  0.0f,
-         5.0f, -5.0f, -5.0f,  -1.0f,  0.0f,  0.0f,
-         5.0f, -5.0f, -5.0f,  -1.0f,  0.0f,  0.0f,
-         5.0f, -5.0f,  5.0f,  -1.0f,  0.0f,  0.0f,
-         5.0f,  5.0f,  5.0f,  -1.0f,  0.0f,  0.0f,
-
-        -5.0f, -5.0f, -5.0f,  0.0f, 1.0f,  0.0f,
-         5.0f, -5.0f, -5.0f,  0.0f, 1.0f,  0.0f,
-         5.0f, -5.0f,  5.0f,  0.0f, 1.0f,  0.0f,
-         5.0f, -5.0f,  5.0f,  0.0f, 1.0f,  0.0f,
-        -5.0f, -5.0f,  5.0f,  0.0f, 1.0f,  0.0f,
-        -5.0f, -5.0f, -5.0f,  0.0f, 1.0f,  0.0f,
-
-        -5.0f,  5.0f, -5.0f,  0.0f,  -1.0f,  0.0f,
-         5.0f,  5.0f, -5.0f,  0.0f,  -1.0f,  0.0f,
-         5.0f,  5.0f,  5.0f,  0.0f,  -1.0f,  0.0f,
-         5.0f,  5.0f,  5.0f,  0.0f,  -1.0f,  0.0f,
-        -5.0f,  5.0f,  5.0f,  0.0f,  -1.0f,  0.0f,
-        -5.0f,  5.0f, -5.0f,  0.0f,  -1.0f,  0.0f
-    };
-
-    
+                             -5.0f, 5.0f, -5.0f, 0.0f, -1.0f, 0.0f,
+                             5.0f, 5.0f, -5.0f, 0.0f, -1.0f, 0.0f,
+                             5.0f, 5.0f, 5.0f, 0.0f, -1.0f, 0.0f,
+                             5.0f, 5.0f, 5.0f, 0.0f, -1.0f, 0.0f,
+                             -5.0f, 5.0f, 5.0f, 0.0f, -1.0f, 0.0f,
+                             -5.0f, 5.0f, -5.0f, 0.0f, -1.0f, 0.0f};
 
     // VBO, VAO
     GLuint VBO, VAO, VBOBig, VAOBig;
@@ -197,14 +191,12 @@ int main()
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid *)0); //location 0 - position
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat))); //location 1 - normal
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid *)(3 * sizeof(GLfloat))); //location 1 - normal
     glEnableVertexAttribArray(1);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     glBindVertexArray(0);
-
-
 
     glBindVertexArray(VAOBig);
 
@@ -213,7 +205,7 @@ int main()
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid *)0); //location 0 - position
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat))); //location 1 - normal
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid *)(3 * sizeof(GLfloat))); //location 1 - normal
     glEnableVertexAttribArray(1);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -244,9 +236,9 @@ int main()
         GLint viewPosLoc = glGetUniformLocation(shaderMtn.Program, "viewPos");
 
         glUniform3f(objectColorLoc, 1.0f, 0.5f, 0.31f);
-        glUniform3f(lightColorLoc,  1.0f, 1.0f, 1.0f);
-        glUniform3f(lightPosLoc,    lightPos.x, lightPos.y, lightPos.z);
-        glUniform3f(viewPosLoc,     cameraPos.x, cameraPos.y, cameraPos.z);
+        glUniform3f(lightColorLoc, 1.0f, 1.0f, 1.0f);
+        glUniform3f(lightPosLoc, lightPos.x, lightPos.y, lightPos.z);
+        glUniform3f(viewPosLoc, cameraPos.x, cameraPos.y, cameraPos.z);
 
         GLint matAmbientLoc = glGetUniformLocation(shaderMtn.Program, "material.ambient");
         GLint matDiffuseLoc = glGetUniformLocation(shaderMtn.Program, "material.diffuse");
@@ -265,8 +257,6 @@ int main()
         glUniform1f(lightConstLoc, 1.0f);
         glUniform1f(lightLinLoc, 0.09f);
         glUniform1f(lightQuadLoc, 0.032f);
-
-
 
         glm::mat4 model;
         glm::mat4 view;
@@ -304,7 +294,6 @@ int main()
     return 0;
 }
 
-
 void key_callback(GLFWwindow *window, int key, int scancode, int action, int mode)
 {
     std::cout << "Key: " << key << std::endl;
@@ -328,6 +317,14 @@ void key_callback(GLFWwindow *window, int key, int scancode, int action, int mod
 void do_movement()
 {
     GLfloat cameraSpeed = Settings::CameraSpeed * deltaTime;
+    if (keys[Settings::UpKey])
+    {
+        cameraPos += cameraSpeed * cameraUp;
+    }
+    if (keys[Settings::DownKey])
+    {
+        cameraPos -= cameraSpeed * cameraUp;
+    }
     if (keys[Settings::ForwardKey])
     {
         cameraPos += cameraSpeed * cameraFront;
@@ -368,7 +365,6 @@ void mouse_callback(GLFWwindow *window, double xpos, double ypos)
     yaw += xoffset;
     pitch += yoffset;
 
-   
     if (pitch > 89.0f)
     {
         pitch = 89.0f;
