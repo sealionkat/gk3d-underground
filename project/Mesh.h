@@ -26,7 +26,7 @@ class Mesh
     void Draw(Shader shader)
     {
         glBindVertexArray(this->VAO);
-        glDrawElements(GL_TRIANGLE, this->indices.size(), GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_TRIANGLES, this->indices.size(), GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
     }
 
