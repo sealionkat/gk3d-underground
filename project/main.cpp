@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 
 // GLEW
 #define GLEW_STATIC
@@ -14,6 +15,7 @@
 
 #include "Settings.h"
 #include "Shader.h"
+#include "Mesh.h"
 #include "Model.h"
 
 void key_callback(GLFWwindow *window, int key, int scancode, int action, int mode);
