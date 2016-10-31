@@ -1,26 +1,32 @@
 #ifdef MODEL_H
 #define MODEL_H
 
-#include <GL/glew.h>
-
-#include <GLFW/glfw3.h>
-
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-
 class Model
 {
-  public:
-    glm::vec3 Position;
-    glm::vec3 Color;
+public:
+  Model(GLchar *path)
+  {
+  }
 
-    glm::vec3 ambient;
-    glm::vec3 diffuse;
-    glm::vec3 specular;
-    GLfloat shininess;
+  void Draw(Shader shader)
+  {
+  }
 
-    GLfloat vertices[];
-}
+private:
+  std::vector<Mesh> meshes;
+  std::string directory;
+
+  void loadModel(std::string path)
+  {
+  }
+
+  void processNode(aiNode *node, const aiScene *scene)
+  {
+  }
+
+  Mesh processMesh(aiMesh *mesh, const aiScene *scene)
+  {
+  }
+};
 
 #endif // !MODEL_H
