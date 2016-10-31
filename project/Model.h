@@ -6,10 +6,15 @@ class Model
 public:
   Model(GLchar *path)
   {
+    this->loadModel(path);
   }
 
   void Draw(Shader shader)
   {
+    for (GLuint i = 0; i < this->meshes.size(); ++i)
+    {
+      this->meshes[i].Draw(shader);
+    }
   }
 
 private:
@@ -18,14 +23,70 @@ private:
 
   void loadModel(std::string path)
   {
+    Assimp::Importer importer;
+    const aiScene *scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
+
+    if (!scene || scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
+    {
+      std::cout << "ASSIMP::" << importer.GetErrorString() << std::endl;
+      return;
+    }
+    this->directory = path.substr(0, path.find_last_of('/'));
+
+    this->processNode(scene->mRootNode, scene);
   }
 
   void processNode(aiNode *node, const aiScene *scene)
   {
+    for (GLuint i = 0; i < node->mNumMeshes; ++i)
+    {
+      aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
+      this->meshes.push_back(this->processMesh(mesh, scene));
+    }
+
+    for (GLuint i = 0; i < node->mNumChildren; ++i)
+    {
+      this->processNode(node->mChildren[i], scene);
+    }
   }
 
   Mesh processMesh(aiMesh *mesh, const aiScene *scene)
   {
+    std::vector<Vertex> vertices;
+    std::vector<GLuint> indices;
+
+    // vertices
+    for (GLuint i = 0; i < mesh->mNumVertices; ++i)
+    {
+      Vertex vertex;
+
+      glm::vec3 position, normal;
+      position.x = mesh->mVertices[i].x;
+      position.y = mesh->mVertices[i].y;
+      position.z = mesh->mVertices[i].z;
+
+      vertex.Position = position;
+
+      normal.x = mesh->mNormals[i].x;
+      normal.y = mesh->mNormals[i].y;
+      normal.z = mesh->mNormals[i].z;
+
+      vertex.Normal = normal;
+
+      vertices.push_back(vertex);
+    }
+
+    // indices
+    for (GLuint i = 0; i < mesh->mNumFaces; ++i)
+    {
+      aiFace face = mesh->mFaces[i];
+      for (GLuint j = 0; j < face.mNumIndices; ++j)
+      {
+        indices.push_back(face.mIndices[j]);
+      }
+    }
+
+    return Mesh(vertices, indices, glm::vec3(1.0f, 1.0f, 1.0f));
   }
 };
 
