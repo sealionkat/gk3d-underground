@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <string>
 
 // GLEW
 #define GLEW_STATIC
@@ -12,6 +13,11 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+
+// Assimp
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
 
 #include "Settings.h"
 #include "Shader.h"
