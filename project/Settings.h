@@ -28,6 +28,19 @@ public:
   static constexpr const GLfloat CameraSpeed = 5.0f;
   static constexpr const GLfloat MouseSensitivity = 0.05f;
 
+  static constexpr const char* objectColorLoc = "objectColor";
+  static constexpr const char* viewPosLoc = "viewPos";
+
+  static constexpr const char* materialAmbientLoc = "material.ambient";
+  static constexpr const char* materialDiffuseLoc = "material.diffuse";
+  static constexpr const char* materialSpecularLoc = "material.specular";
+  static constexpr const char* materialShininessLoc = "material.shininess";
+
+  static constexpr const char* modelMatrixLoc = "model";
+  static constexpr const char* viewMatrixLoc = "view";
+  static constexpr const char* projectionMatrixLoc = "projection";
+
+
 private:
   Settings() = delete;
   Settings(const Settings &) = delete;

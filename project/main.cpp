@@ -227,13 +227,13 @@ int main()
         shaderMtn.Use();
 
 
-        glUniform3f(glGetUniformLocation(shaderMtn.Program, "objectColor"), 0.75f, 0.75f, 0.75f);
-        glUniform3f(glGetUniformLocation(shaderMtn.Program, "viewPos"), cameraPos.x, cameraPos.y, cameraPos.z);
+        glUniform3f(glGetUniformLocation(shaderMtn.Program, Settings::objectColorLoc), 0.75f, 0.75f, 0.75f);
+        glUniform3f(glGetUniformLocation(shaderMtn.Program, Settings::viewPosLoc), cameraPos.x, cameraPos.y, cameraPos.z);
 
-        glUniform3f(glGetUniformLocation(shaderMtn.Program, "material.ambient"), 0.75f, 0.75f, 0.75f);
-        glUniform3f(glGetUniformLocation(shaderMtn.Program, "material.diffuse"), 0.75f, 0.75f, 0.75f);
-        glUniform3f(glGetUniformLocation(shaderMtn.Program, "material.specular"), 0.5f, 0.5f, 0.5f);
-        glUniform1f(glGetUniformLocation(shaderMtn.Program, "material.shininess"), 32.0f);
+        glUniform3f(glGetUniformLocation(shaderMtn.Program, Settings::materialAmbientLoc), 0.75f, 0.75f, 0.75f);
+        glUniform3f(glGetUniformLocation(shaderMtn.Program, Settings::materialDiffuseLoc), 0.75f, 0.75f, 0.75f);
+        glUniform3f(glGetUniformLocation(shaderMtn.Program, Settings::materialSpecularLoc), 0.5f, 0.5f, 0.5f);
+        glUniform1f(glGetUniformLocation(shaderMtn.Program, Settings::materialShininessLoc), 32.0f);
 
 
         // Point lights
@@ -270,9 +270,9 @@ int main()
         projection = glm::perspective(glm::radians(Settings::FOV), (float)width / (float)height, Settings::PerspectiveNear, Settings::PerspectiveFar);
 
 
-        glUniformMatrix4fv(glGetUniformLocation(shaderMtn.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-        glUniformMatrix4fv(glGetUniformLocation(shaderMtn.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
-        glUniformMatrix4fv(glGetUniformLocation(shaderMtn.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+        glUniformMatrix4fv(glGetUniformLocation(shaderMtn.Program, Settings::modelMatrixLoc), 1, GL_FALSE, glm::value_ptr(model));
+        glUniformMatrix4fv(glGetUniformLocation(shaderMtn.Program, Settings::viewMatrixLoc), 1, GL_FALSE, glm::value_ptr(view));
+        glUniformMatrix4fv(glGetUniformLocation(shaderMtn.Program, Settings::projectionMatrixLoc), 1, GL_FALSE, glm::value_ptr(projection));
 
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 36); //36 for whole cube
