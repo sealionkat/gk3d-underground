@@ -26,7 +26,7 @@ class Mesh
 
     void Draw(Shader shader)
     {
-        std::cout << "Drawing mesh" << std::endl;
+        //std::cout << "Drawing mesh" << std::endl;
         glBindVertexArray(this->VAO);
         glDrawElements(GL_TRIANGLES, this->indices.size(), GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);

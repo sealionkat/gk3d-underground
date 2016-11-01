@@ -12,7 +12,14 @@ public:
 
   void Draw(Shader shader)
   {
-    std::cout << "Drawing model" << std::endl;
+    glUniform3f(glGetUniformLocation(shader.Program, Settings::objectColorLoc), 1.0f, 0.0f, 0.0f);
+
+    glUniform3f(glGetUniformLocation(shader.Program, Settings::materialAmbientLoc), 1.0f, 0.0f, 0.0f);
+    glUniform3f(glGetUniformLocation(shader.Program, Settings::materialDiffuseLoc), 1.0f, 0.0f, 0.0f);
+    glUniform3f(glGetUniformLocation(shader.Program, Settings::materialSpecularLoc), 0.5f, 0.5f, 0.5f);
+    glUniform1f(glGetUniformLocation(shader.Program, Settings::materialShininessLoc), 32.0f);
+
+    //std::cout << "Drawing model" << std::endl;
     for (GLuint i = 0; i < this->meshes.size(); ++i)
     {
       this->meshes[i].Draw(shader);
@@ -27,7 +34,7 @@ private:
   {
     std::cout << "Loading model: " << path << std::endl;
     Assimp::Importer importer;
-    
+
     const aiScene *scene = importer.ReadFile(path, aiProcess_Triangulate); //| aiProcess_FlipUVs
 
     if (!scene || scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)

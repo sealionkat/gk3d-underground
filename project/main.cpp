@@ -298,6 +298,15 @@ int main()
         glBindVertexArray(0);
 
         // drawing loaded models
+        glm::mat4 scaledBench;
+        glm::mat4 translatedBench;
+        glm::mat4 benchModel;
+        scaledBench = glm::scale(scaledBench, glm::vec3(0.007f, 0.007f, 0.007f));
+        translatedBench = glm::translate(translatedBench, glm::vec3(0.0f, 1.0f, 0.0f));
+        benchModel = translatedBench * scaledBench;
+        glUniformMatrix4fv(glGetUniformLocation(shaderMtn.Program, Settings::modelMatrixLoc), 1, GL_FALSE, glm::value_ptr(benchModel));
+
+        bench->Draw(shaderMtn);
         
 
         glfwSwapBuffers(window);
