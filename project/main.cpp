@@ -215,10 +215,11 @@ int main()
     Model* bench = new Model("models/bench/bench_v01.obj");
     bench->SetColor(glm::vec3(0.0f, 0.4f, 0.15f));
 
-    //Model* flashlight = new Model("models/flashlight/flashlight.obj");
-
     Model* slenderman = new Model("models/slenderman/slenderman.obj");
-    slenderman->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
+    slenderman->SetColor(glm::vec3(0.3f, 0.3f, 0.3f));
+
+    Model* flashlight = new Model("models/flashlight/flashlight.obj");
+    flashlight->SetColor(glm::vec3(0.0f, 1.0f, 1.0f));
 
     
 
@@ -330,15 +331,34 @@ int main()
         bench->Draw(shaderMtn);
 
         glm::mat4 slendermanModel;
+        glm::mat4 rotatedSlenderman;
         glm::mat4 translatedSlenderman;
         glm::mat4 scaledSlenderman;
 
         scaledSlenderman = glm::scale(scaledSlenderman, glm::vec3(0.2f, 0.2f, 0.2f));
-        translatedSlenderman = glm::translate(translatedSlenderman, glm::vec3(4.0f, -1.0f, -14.0f));
-        slendermanModel = translatedSlenderman * scaledSlenderman;
+        translatedSlenderman = glm::translate(translatedSlenderman, glm::vec3(4.0f, -1.0f, 14.0f));
+        rotatedSlenderman = glm::rotate(rotatedSlenderman, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        slendermanModel = translatedSlenderman * rotatedSlenderman * scaledSlenderman;
         glUniformMatrix4fv(glGetUniformLocation(shaderMtn.Program, Settings::modelMatrixLoc), 1, GL_FALSE, glm::value_ptr(slendermanModel));
         
         slenderman->Draw(shaderMtn);
+
+        glm::mat4 flashlightModel;
+        glm::mat4 translatedFirstFlashlight;
+        glm::mat4 scaledFlashlight;
+        glm::mat4 rotatedFlashlight;
+        glm::mat4 translatedFlashlight;
+
+        translatedFirstFlashlight = glm::translate(translatedFirstFlashlight, glm::vec3(0.0f, 0.0f, -58.0f));
+        rotatedFlashlight = glm::rotate(rotatedFlashlight, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        scaledFlashlight = glm::scale(scaledFlashlight, glm::vec3(0.02f, 0.02f, 0.02f));
+        translatedFlashlight = glm::translate(translatedFlashlight, glm::vec3(3.75f, -0.6f, 14.0f));
+
+        flashlightModel = translatedFlashlight * rotatedFlashlight * scaledFlashlight * translatedFirstFlashlight;
+
+        glUniformMatrix4fv(glGetUniformLocation(shaderMtn.Program, Settings::modelMatrixLoc), 1, GL_FALSE, glm::value_ptr(flashlightModel));
+        
+        flashlight->Draw(shaderMtn);
 
         glfwSwapBuffers(window);
     }
