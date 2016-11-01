@@ -261,7 +261,7 @@ int main()
 
         // Point lights
         glUniform3f(glGetUniformLocation(shaderMtn.Program, "pointLights[0].position"), 0.0f, 6.5f, 12.0f);
-        glUniform3f(glGetUniformLocation(shaderMtn.Program, "pointLights[0].color"), 1.0f, 0.0f, 0.0f);
+        glUniform3f(glGetUniformLocation(shaderMtn.Program, "pointLights[0].color"), ((glm::sin((GLfloat)glfwGetTime()) + 1) / 2), 0.0f, 0.0f);
         glUniform1f(glGetUniformLocation(shaderMtn.Program, "pointLights[0].constant"), 1.0f);
         glUniform1f(glGetUniformLocation(shaderMtn.Program, "pointLights[0].linear"), 0.1f);
         glUniform1f(glGetUniformLocation(shaderMtn.Program, "pointLights[0].quadratic"), 0.1f);
