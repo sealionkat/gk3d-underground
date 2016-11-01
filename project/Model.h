@@ -6,11 +6,13 @@ class Model
 public:
   Model(GLchar *path)
   {
+    std::cout << "Initalizing model" << std::endl;
     this->loadModel(path);
   }
 
   void Draw(Shader shader)
   {
+    std::cout << "Drawing model" << std::endl;
     for (GLuint i = 0; i < this->meshes.size(); ++i)
     {
       this->meshes[i].Draw(shader);
@@ -23,6 +25,7 @@ private:
 
   void loadModel(std::string path)
   {
+    std::cout << "Loading model" << std::endl;
     Assimp::Importer importer;
     const aiScene *scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
 
@@ -38,6 +41,7 @@ private:
 
   void processNode(aiNode *node, const aiScene *scene)
   {
+    std::cout << "Processing node" << std::endl;
     for (GLuint i = 0; i < node->mNumMeshes; ++i)
     {
       aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
@@ -52,9 +56,11 @@ private:
 
   Mesh processMesh(aiMesh *mesh, const aiScene *scene)
   {
+    std::cout << "Processing mesh" << std::endl;
     std::vector<Vertex> vertices;
     std::vector<GLuint> indices;
 
+    std::cout << "Processing vertices" << std::endl;
     // vertices
     for (GLuint i = 0; i < mesh->mNumVertices; ++i)
     {
@@ -76,6 +82,7 @@ private:
       vertices.push_back(vertex);
     }
 
+    std::cout << "Processing indices" << std::endl;
     // indices
     for (GLuint i = 0; i < mesh->mNumFaces; ++i)
     {

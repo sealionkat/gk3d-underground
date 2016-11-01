@@ -16,6 +16,7 @@ class Mesh
 
     Mesh(std::vector<Vertex> vertices, std::vector<GLuint> indices, glm::vec3 color)
     {
+        std::cout << "Initializing mesh" << std::endl;
         this->vertices = vertices;
         this->indices = indices;
         this->color = color;
@@ -25,6 +26,7 @@ class Mesh
 
     void Draw(Shader shader)
     {
+        std::cout << "Drawing mesh" << std::endl;
         glBindVertexArray(this->VAO);
         glDrawElements(GL_TRIANGLES, this->indices.size(), GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);

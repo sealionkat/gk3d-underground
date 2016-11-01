@@ -70,7 +70,7 @@ int main()
 
     /* Objects setup */
 
-    std::cout << "Preparing objects..." << std::endl;
+    std::cout << "Creating objects..." << std::endl;
 
     GLfloat vertices[] = {
         -3.0f, -1.0f, 15.0f, 0.0f, 0.0f, 1.0f, //front
@@ -221,12 +221,14 @@ int main()
         glfwPollEvents();
         do_movement();
 
+        //std::cout << "Preparing window" << std::endl;
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         shaderMtn.Use();
 
 
+        //std::cout << "Preparing object " << std::endl;
         glUniform3f(glGetUniformLocation(shaderMtn.Program, Settings::objectColorLoc), 0.75f, 0.75f, 0.75f);
         glUniform3f(glGetUniformLocation(shaderMtn.Program, Settings::viewPosLoc), cameraPos.x, cameraPos.y, cameraPos.z);
 
@@ -236,6 +238,7 @@ int main()
         glUniform1f(glGetUniformLocation(shaderMtn.Program, Settings::materialShininessLoc), 32.0f);
 
 
+        //std::cout << "Preparing point lights" << std::endl;
         // Point lights
         glUniform3f(glGetUniformLocation(shaderMtn.Program, "pointLights[0].position"), 0.0f, 4.0f, 12.0f);
         glUniform3f(glGetUniformLocation(shaderMtn.Program, "pointLights[0].color"), 1.0f, 1.0f, 1.0f);
@@ -249,6 +252,7 @@ int main()
         glUniform1f(glGetUniformLocation(shaderMtn.Program, "pointLights[1].linear"), 0.1f);
         glUniform1f(glGetUniformLocation(shaderMtn.Program, "pointLights[1].quadratic"), 0.1f);
 
+        //std::cout << "Preparing spot lights" << std::endl;
         // Spotlight
         glUniform3f(glGetUniformLocation(shaderMtn.Program, "spotLight.position"), cameraPos.x, cameraPos.y, cameraPos.z);
         glUniform3f(glGetUniformLocation(shaderMtn.Program, "spotLight.direction"), cameraFront.x, cameraFront.y, cameraFront.z);
@@ -264,7 +268,7 @@ int main()
         glm::mat4 model;
         glm::mat4 view;
         glm::mat4 projection;
-
+        //std::cout << "Prepating matrices" << std::endl;
         model = glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
         view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
         projection = glm::perspective(glm::radians(Settings::FOV), (float)width / (float)height, Settings::PerspectiveNear, Settings::PerspectiveFar);
@@ -274,6 +278,7 @@ int main()
         glUniformMatrix4fv(glGetUniformLocation(shaderMtn.Program, Settings::viewMatrixLoc), 1, GL_FALSE, glm::value_ptr(view));
         glUniformMatrix4fv(glGetUniformLocation(shaderMtn.Program, Settings::projectionMatrixLoc), 1, GL_FALSE, glm::value_ptr(projection));
 
+        //std::cout << "Drawing objects" << std::endl;
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 36); //36 for whole cube
         glBindVertexArray(0);

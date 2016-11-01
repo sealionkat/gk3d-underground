@@ -8,7 +8,7 @@ class Shader
     // Constructor generates the shader on the fly
     Shader(const GLchar *vertexPath, const GLchar *fragmentPath, const GLchar *geometryPath = nullptr)
     {
-        // 1. Retrieve the vertex/fragment source code from filePath
+        std::cout << "Initializing shaders " << vertexPath << " " << fragmentPath << std::endl;
         std::string vertexCode;
         std::string fragmentCode;
         std::string geometryCode;
