@@ -12,10 +12,10 @@ public:
 
   void Draw(Shader shader)
   {
-    glUniform3f(glGetUniformLocation(shader.Program, Settings::objectColorLoc), 1.0f, 0.0f, 0.0f);
+    glUniform3f(glGetUniformLocation(shader.Program, Settings::objectColorLoc), this->color[0], this->color[1], this->color[2]);
 
-    glUniform3f(glGetUniformLocation(shader.Program, Settings::materialAmbientLoc), 1.0f, 0.0f, 0.0f);
-    glUniform3f(glGetUniformLocation(shader.Program, Settings::materialDiffuseLoc), 1.0f, 0.0f, 0.0f);
+    glUniform3f(glGetUniformLocation(shader.Program, Settings::materialAmbientLoc), this->color[0], this->color[1], this->color[2]);
+    glUniform3f(glGetUniformLocation(shader.Program, Settings::materialDiffuseLoc), this->color[0], this->color[1], this->color[2]);
     glUniform3f(glGetUniformLocation(shader.Program, Settings::materialSpecularLoc), 0.5f, 0.5f, 0.5f);
     glUniform1f(glGetUniformLocation(shader.Program, Settings::materialShininessLoc), 32.0f);
 
@@ -26,9 +26,15 @@ public:
     }
   }
 
+  void SetColor(glm::vec3 color)
+  {
+    this->color = color;
+  }
+
 private:
   std::vector<Mesh> meshes;
   std::string directory;
+  glm::vec3 color = glm::vec3(1.0f, 1.0f, 1.0f);
 
   void loadModel(std::string path)
   {

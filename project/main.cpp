@@ -213,6 +213,7 @@ int main()
     std::cout << "Creating bench" << std::endl;
 
     Model* bench = new Model("models/bench/bench_v01.obj");
+    bench->SetColor(glm::vec3(0.0f, 1.0f, 0.5f));
 
     /* /Objects setup */
 
