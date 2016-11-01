@@ -227,15 +227,22 @@ int main()
 
         shaderMtn.Use();
 
+        // matrices
+        glm::mat4 model;
+        glm::mat4 view;
+        glm::mat4 projection;
+        //std::cout << "Prepating matrices" << std::endl;
+        model = glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+        view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+        projection = glm::perspective(glm::radians(Settings::FOV), (float)width / (float)height, Settings::PerspectiveNear, Settings::PerspectiveFar);
 
-        //std::cout << "Preparing object " << std::endl;
-        glUniform3f(glGetUniformLocation(shaderMtn.Program, Settings::objectColorLoc), 0.75f, 0.75f, 0.75f);
+
+        glUniformMatrix4fv(glGetUniformLocation(shaderMtn.Program, Settings::modelMatrixLoc), 1, GL_FALSE, glm::value_ptr(model));
+        glUniformMatrix4fv(glGetUniformLocation(shaderMtn.Program, Settings::viewMatrixLoc), 1, GL_FALSE, glm::value_ptr(view));
+        glUniformMatrix4fv(glGetUniformLocation(shaderMtn.Program, Settings::projectionMatrixLoc), 1, GL_FALSE, glm::value_ptr(projection));
+
+        // setting camera position
         glUniform3f(glGetUniformLocation(shaderMtn.Program, Settings::viewPosLoc), cameraPos.x, cameraPos.y, cameraPos.z);
-
-        glUniform3f(glGetUniformLocation(shaderMtn.Program, Settings::materialAmbientLoc), 0.75f, 0.75f, 0.75f);
-        glUniform3f(glGetUniformLocation(shaderMtn.Program, Settings::materialDiffuseLoc), 0.75f, 0.75f, 0.75f);
-        glUniform3f(glGetUniformLocation(shaderMtn.Program, Settings::materialSpecularLoc), 0.5f, 0.5f, 0.5f);
-        glUniform1f(glGetUniformLocation(shaderMtn.Program, Settings::materialShininessLoc), 32.0f);
 
 
         //std::cout << "Preparing point lights" << std::endl;
@@ -264,19 +271,15 @@ int main()
         glUniform1f(glGetUniformLocation(shaderMtn.Program, "spotLight.quadratic"), 0.05f);
 
 
+        //std::cout << "Preparing object " << std::endl;
+        glUniform3f(glGetUniformLocation(shaderMtn.Program, Settings::objectColorLoc), 0.75f, 0.75f, 0.75f);
+        
 
-        glm::mat4 model;
-        glm::mat4 view;
-        glm::mat4 projection;
-        //std::cout << "Prepating matrices" << std::endl;
-        model = glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-        view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
-        projection = glm::perspective(glm::radians(Settings::FOV), (float)width / (float)height, Settings::PerspectiveNear, Settings::PerspectiveFar);
-
-
-        glUniformMatrix4fv(glGetUniformLocation(shaderMtn.Program, Settings::modelMatrixLoc), 1, GL_FALSE, glm::value_ptr(model));
-        glUniformMatrix4fv(glGetUniformLocation(shaderMtn.Program, Settings::viewMatrixLoc), 1, GL_FALSE, glm::value_ptr(view));
-        glUniformMatrix4fv(glGetUniformLocation(shaderMtn.Program, Settings::projectionMatrixLoc), 1, GL_FALSE, glm::value_ptr(projection));
+        glUniform3f(glGetUniformLocation(shaderMtn.Program, Settings::materialAmbientLoc), 0.75f, 0.75f, 0.75f);
+        glUniform3f(glGetUniformLocation(shaderMtn.Program, Settings::materialDiffuseLoc), 0.75f, 0.75f, 0.75f);
+        glUniform3f(glGetUniformLocation(shaderMtn.Program, Settings::materialSpecularLoc), 0.5f, 0.5f, 0.5f);
+        glUniform1f(glGetUniformLocation(shaderMtn.Program, Settings::materialShininessLoc), 32.0f);
+        
 
         //std::cout << "Drawing objects" << std::endl;
         glBindVertexArray(VAO);
