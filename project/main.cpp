@@ -213,7 +213,7 @@ int main()
     std::cout << "Creating bench" << std::endl;
 
     Model* bench = new Model("models/bench/bench_v01.obj");
-    bench->SetColor(glm::vec3(0.0f, 1.0f, 0.5f));
+    bench->SetColor(glm::vec3(0.0f, 0.4f, 0.15f));
 
     /* /Objects setup */
 
@@ -254,13 +254,13 @@ int main()
 
         //std::cout << "Preparing point lights" << std::endl;
         // Point lights
-        glUniform3f(glGetUniformLocation(shaderMtn.Program, "pointLights[0].position"), 0.0f, 4.0f, 12.0f);
+        glUniform3f(glGetUniformLocation(shaderMtn.Program, "pointLights[0].position"), 0.0f, 6.5f, 12.0f);
         glUniform3f(glGetUniformLocation(shaderMtn.Program, "pointLights[0].color"), 1.0f, 1.0f, 1.0f);
         glUniform1f(glGetUniformLocation(shaderMtn.Program, "pointLights[0].constant"), 1.0f);
         glUniform1f(glGetUniformLocation(shaderMtn.Program, "pointLights[0].linear"), 0.1f);
         glUniform1f(glGetUniformLocation(shaderMtn.Program, "pointLights[0].quadratic"), 0.1f);
         // Point light 2
-        glUniform3f(glGetUniformLocation(shaderMtn.Program, "pointLights[1].position"), 0.0f, 4.0f, -12.0f);
+        glUniform3f(glGetUniformLocation(shaderMtn.Program, "pointLights[1].position"), 0.0f, 6.5f, -12.0f);
         glUniform3f(glGetUniformLocation(shaderMtn.Program, "pointLights[1].color"), 1.0f, 1.0f, 1.0f);
         glUniform1f(glGetUniformLocation(shaderMtn.Program, "pointLights[1].constant"), 1.0f);
         glUniform1f(glGetUniformLocation(shaderMtn.Program, "pointLights[1].linear"), 0.1f);
