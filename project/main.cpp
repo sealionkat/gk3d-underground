@@ -215,6 +215,13 @@ int main()
     Model* bench = new Model("models/bench/bench_v01.obj");
     bench->SetColor(glm::vec3(0.0f, 0.4f, 0.15f));
 
+    //Model* flashlight = new Model("models/flashlight/flashlight.obj");
+
+    Model* slenderman = new Model("models/slenderman/slenderman.obj");
+    slenderman->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
+
+    
+
     /* /Objects setup */
 
     // Game loop
@@ -321,7 +328,17 @@ int main()
         glUniformMatrix4fv(glGetUniformLocation(shaderMtn.Program, Settings::modelMatrixLoc), 1, GL_FALSE, glm::value_ptr(benchModel2));
 
         bench->Draw(shaderMtn);
+
+        glm::mat4 slendermanModel;
+        glm::mat4 translatedSlenderman;
+        glm::mat4 scaledSlenderman;
+
+        scaledSlenderman = glm::scale(scaledSlenderman, glm::vec3(0.2f, 0.2f, 0.2f));
+        translatedSlenderman = glm::translate(translatedSlenderman, glm::vec3(4.0f, -1.0f, -14.0f));
+        slendermanModel = translatedSlenderman * scaledSlenderman;
+        glUniformMatrix4fv(glGetUniformLocation(shaderMtn.Program, Settings::modelMatrixLoc), 1, GL_FALSE, glm::value_ptr(slendermanModel));
         
+        slenderman->Draw(shaderMtn);
 
         glfwSwapBuffers(window);
     }
