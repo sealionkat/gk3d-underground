@@ -72,6 +72,7 @@ int main()
 
     std::cout << "Creating objects..." << std::endl;
 
+    std::cout << "Creating platform" << std::endl;
     GLfloat vertices[] = {
         -3.0f, -1.0f, 15.0f, 0.0f, 0.0f, 1.0f, //front
         3.0f, 1.0f, 15.0f, 0.0f, 0.0f, 1.0f,
@@ -120,7 +121,8 @@ int main()
         3.0f, 1.0f, -15.0f, 0.0f, 1.0f, 0.0f,
         3.0f, 1.0f, 15.0f, 0.0f, 1.0f, 0.0f,
         -3.0f, 1.0f, 15.0f, 0.0f, 1.0f, 0.0f};
-
+    
+    std::cout << "Creating walls, floor and ceiling" << std::endl;
     GLfloat verticesBig[] = {//position, normal
         -8.0f, -1.0f, 15.0f, 0.0f, 0.0f, -1.0f, //front
         8.0f, 7.0f, 15.0f, 0.0f, 0.0f, -1.0f,
@@ -208,6 +210,10 @@ int main()
 
     glBindVertexArray(0);
 
+    std::cout << "Creating bench" << std::endl;
+
+    Model* bench = new Model("models/bench/bench_v01.obj");
+
     /* /Objects setup */
 
     // Game loop
@@ -290,6 +296,8 @@ int main()
         glBindVertexArray(VAOBig);
         glDrawArrays(GL_TRIANGLES, 0, 36);
         glBindVertexArray(0);
+
+        // drawing loaded models
         
 
         glfwSwapBuffers(window);

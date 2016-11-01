@@ -4,7 +4,7 @@
 class Model
 {
 public:
-  Model(GLchar *path)
+  Model(const GLchar *path)
   {
     std::cout << "Initalizing model" << std::endl;
     this->loadModel(path);
@@ -25,15 +25,17 @@ private:
 
   void loadModel(std::string path)
   {
-    std::cout << "Loading model" << std::endl;
+    std::cout << "Loading model: " << path << std::endl;
     Assimp::Importer importer;
-    const aiScene *scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
+    
+    const aiScene *scene = importer.ReadFile(path, aiProcess_Triangulate); //| aiProcess_FlipUVs
 
     if (!scene || scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
     {
       std::cout << "ASSIMP::" << importer.GetErrorString() << std::endl;
       return;
     }
+
     this->directory = path.substr(0, path.find_last_of('/'));
 
     this->processNode(scene->mRootNode, scene);
