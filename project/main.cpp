@@ -274,19 +274,26 @@ int main()
         glUniform1f(glGetUniformLocation(shaderMtn.Program, "pointLights[1].linear"), 0.1f);
         glUniform1f(glGetUniformLocation(shaderMtn.Program, "pointLights[1].quadratic"), 0.1f);
 
-        //std::cout << "Preparing spot lights" << std::endl;
         // Spotlight
-        glUniform3f(glGetUniformLocation(shaderMtn.Program, "spotLight.position"), cameraPos.x, cameraPos.y, cameraPos.z);
-        glUniform3f(glGetUniformLocation(shaderMtn.Program, "spotLight.direction"), cameraFront.x, cameraFront.y, cameraFront.z);
-        glUniform3f(glGetUniformLocation(shaderMtn.Program, "spotLight.color"), 1.0f, 1.0f, 1.0f);
-        glUniform1f(glGetUniformLocation(shaderMtn.Program, "spotLight.cutOff"), glm::cos(glm::radians(12.5f)));
-        glUniform1f(glGetUniformLocation(shaderMtn.Program, "spotLight.outerCutOff"), glm::cos(glm::radians(17.5f)));
-        glUniform1f(glGetUniformLocation(shaderMtn.Program, "spotLight.constant"), 1.0f);
-        glUniform1f(glGetUniformLocation(shaderMtn.Program, "spotLight.linear"), 0.5f);
-        glUniform1f(glGetUniformLocation(shaderMtn.Program, "spotLight.quadratic"), 0.05f);
+        glUniform3f(glGetUniformLocation(shaderMtn.Program, "spotLights[0].position"), cameraPos.x, cameraPos.y, cameraPos.z);
+        glUniform3f(glGetUniformLocation(shaderMtn.Program, "spotLights[0].direction"), cameraFront.x, cameraFront.y, cameraFront.z);
+        glUniform3f(glGetUniformLocation(shaderMtn.Program, "spotLights[0].color"), 1.0f, 1.0f, 1.0f);
+        glUniform1f(glGetUniformLocation(shaderMtn.Program, "spotLights[0].cutOff"), glm::cos(glm::radians(12.5f)));
+        glUniform1f(glGetUniformLocation(shaderMtn.Program, "spotLights[0].outerCutOff"), glm::cos(glm::radians(17.5f)));
+        glUniform1f(glGetUniformLocation(shaderMtn.Program, "spotLights[0].constant"), 1.0f);
+        glUniform1f(glGetUniformLocation(shaderMtn.Program, "spotLights[0].linear"), 0.5f);
+        glUniform1f(glGetUniformLocation(shaderMtn.Program, "spotLights[0].quadratic"), 0.05f);
+
+        glUniform3f(glGetUniformLocation(shaderMtn.Program, "spotLights[1].position"), 3.75f, -0.6f, 13.9f);
+        glUniform3f(glGetUniformLocation(shaderMtn.Program, "spotLights[1].direction"), 0.0f, 0.0f, -1.0f);
+        glUniform3f(glGetUniformLocation(shaderMtn.Program, "spotLights[1].color"), 1.0f, 1.0f, 1.0f);
+        glUniform1f(glGetUniformLocation(shaderMtn.Program, "spotLights[1].cutOff"), glm::cos(glm::radians(12.5f)));
+        glUniform1f(glGetUniformLocation(shaderMtn.Program, "spotLights[1].outerCutOff"), glm::cos(glm::radians(17.5f)));
+        glUniform1f(glGetUniformLocation(shaderMtn.Program, "spotLights[1].constant"), 1.0f);
+        glUniform1f(glGetUniformLocation(shaderMtn.Program, "spotLights[1].linear"), 0.5f);
+        glUniform1f(glGetUniformLocation(shaderMtn.Program, "spotLights[1].quadratic"), 0.05f);
 
 
-        //std::cout << "Preparing object " << std::endl;
         glUniform3f(glGetUniformLocation(shaderMtn.Program, Settings::objectColorLoc), 0.75f, 0.75f, 0.75f);
         
 
@@ -296,7 +303,6 @@ int main()
         glUniform1f(glGetUniformLocation(shaderMtn.Program, Settings::materialShininessLoc), 32.0f);
         
 
-        //std::cout << "Drawing objects" << std::endl;
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 36); //36 for whole cube
         glBindVertexArray(0);

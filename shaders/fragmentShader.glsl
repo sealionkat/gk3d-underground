@@ -43,11 +43,12 @@ in vec3 FragPos;
 in vec3 Normal;
 
 uniform PointLight pointLights[POINT_LIGHTS_NR];
+uniform SpotLight spotLights[SPOT_LIGHTS_NR];
 
 uniform vec3 viewPos;
 uniform vec3 objectColor;
 uniform Material material;
-uniform SpotLight spotLight;
+//uniform SpotLight spotLight;
 
 
 vec3 CalculatePointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir) 
@@ -95,7 +96,7 @@ vec3 CalculateSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir
     float intensity = clamp((theta - light.outerCutOff) / epsilon, 0.0, 1.0);
 
 
-    return (ambient + diffuse + specular) * attenuation * intensity /** attenuation * intensity*/;  
+    return (ambient + diffuse + specular) * attenuation * intensity;  
 }
 
 
@@ -106,10 +107,14 @@ void main()
 
     vec3 result = vec3(0.0f, 0.0f, 0.0f);
 
-    for(int i = 0; i < POINT_LIGHTS_NR; ++i) {
+    for(int i = 0; i < POINT_LIGHTS_NR; ++i) 
+    {
         result += CalculatePointLight(pointLights[i], norm, FragPos, viewDir);
     }
-    result += CalculateSpotLight(spotLight, norm, FragPos, viewDir);
+    for(int i = 0; i < SPOT_LIGHTS_NR; ++i) 
+    {
+        result += CalculateSpotLight(spotLights[i], norm, FragPos, viewDir);
+    }
 
    result *= objectColor;
 
