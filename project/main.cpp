@@ -301,10 +301,23 @@ int main()
         glm::mat4 scaledBench;
         glm::mat4 translatedBench;
         glm::mat4 benchModel;
+        
         scaledBench = glm::scale(scaledBench, glm::vec3(0.007f, 0.007f, 0.007f));
-        translatedBench = glm::translate(translatedBench, glm::vec3(0.0f, 1.0f, 0.0f));
+        translatedBench = glm::translate(translatedBench, glm::vec3(0.25f, 1.0f, 5.0f));
         benchModel = translatedBench * scaledBench;
         glUniformMatrix4fv(glGetUniformLocation(shaderMtn.Program, Settings::modelMatrixLoc), 1, GL_FALSE, glm::value_ptr(benchModel));
+
+        bench->Draw(shaderMtn);
+
+        glm::mat4 translatedBench2;
+        glm::mat4 rotatedBench2;
+        glm::mat4 benchModel2;
+
+        translatedBench2 = glm::translate(translatedBench2, glm::vec3(-0.25f, 1.0f, 5.0f));
+        rotatedBench2 = glm::rotate(rotatedBench2, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        benchModel2 = translatedBench2 * rotatedBench2 * scaledBench;
+
+        glUniformMatrix4fv(glGetUniformLocation(shaderMtn.Program, Settings::modelMatrixLoc), 1, GL_FALSE, glm::value_ptr(benchModel2));
 
         bench->Draw(shaderMtn);
         
